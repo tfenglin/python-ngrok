@@ -114,7 +114,7 @@ def connectremote(host, port):
         ssl_client.connect((host, port))
         ssl_client.setblocking(1)
         logger = logging.getLogger('%s:%d' % ('Conn', ssl_client.fileno()))
-        logger.debug('New connection to: %s:%d' % (host, port))
+        #logger.debug('New connection to: %s:%d' % (host, port))
     except socket.error:
         return False
 
@@ -127,7 +127,7 @@ def connectlocal(localhost, localport):
         client.connect((localhost, localport))
         client.setblocking(1)
         logger = logging.getLogger('%s:%d' % ('Conn', client.fileno()))
-        logger.debug('New connection to: %s:%d' % (localhost, localport))
+        #logger.debug('New connection to: %s:%d' % (localhost, localport))
     except socket.error:
         return False
 
@@ -194,7 +194,7 @@ def sendpack(sock, msg, isblock = False):
         sock.setblocking(1)
     sock.sendall(lentobyte(len(msg)) + msg.encode('utf-8'))
     logger = logging.getLogger('%s:%d' % ('Send', sock.fileno()))
-    logger.debug('Writing message: %s' % msg)
+    #logger.debug('Writing message: %s' % msg)
     if isblock:
         sock.setblocking(0)
 
@@ -239,8 +239,8 @@ def HKClient(sock, linkstate, type, tosock = None):
                 if len(recvbuf) >= (8 + lenbyte):
                     buf = recvbuf[8:lenbyte + 8].decode('utf-8')
                     logger = logging.getLogger('%s:%d' % ('Recv', sock.fileno()))
-                    logger.debug('Reading message with length: %d' % len(buf))
-                    logger.debug('Read message: %s' % buf)
+                    #logger.debug('Reading message with length: %d' % len(buf))
+                    #logger.debug('Read message: %s' % buf)
                     js = json.loads(buf)
                     if type == 1:
                         if js['Type'] == 'ReqProxy':
@@ -308,7 +308,7 @@ def HKClient(sock, linkstate, type, tosock = None):
             tosock.close()
 
     logger = logging.getLogger('%s:%d' % ('Close', sock.fileno()))
-    logger.debug('Closing')
+    #logger.debug('Closing')
     sock.close()
 
 # 客户端程序初始化
